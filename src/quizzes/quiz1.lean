@@ -18,10 +18,10 @@ there is no such valid inference rule.
 
 If a ball, b, is round *and* b is also red, is b red?
 
-A: yes/no: 
+A: yes/no: yes
 
 B: Why? 
-
+And elimination: round(b) AND red(B) |- red(B)
 
 #1B
 
@@ -29,59 +29,60 @@ If flowers make you happy and chocolates make you happy,
 and I give you flowers *or* I give you chocolates, will
 you be happy?
 
-A: yes/no: 
+A: yes/no: yes
 
 B: Why?
+or elimination: you give me flowers or you give me chocolate, flowers make me happy, chocolate makes me happy |- I will be happy
 
 
 #1C: If giraffes are just zebras in disguise, then the 
 moon is made of green cheese?
 
-A. yes/: 
+A. yes/: no?
 
-B. Why?
+B. Why? No rules seem to apply to this unless we assume some information about their veracity
 
 
 #1D. If x = y implies that 0 = 1, then is it true that
 x ≠ y?
 
-A. yes/no: 
+A. yes/no: yes
 
-B. Why?
+B. Why? P → false |- ¬ P (proof by negation)
 
 
 
 #1E. If every zebra has stripes and Zoe is a Zebra then
 Zoe has stripes.
 
-A. yes/no: 
+A. yes/no: yes
 
-B. Why?
+B. Why? arrow elimination: zebra(x) → stripes(x), zebra(zoe) |- stripes(zoe)
 
 
 #1F. If Z could be *any* Zebra and Z has stripes, then 
 *every* Zebra has stripes.
 
-A. Yes/no: 
+A. Yes/no: no
 
-B: Why?
+B: Why? information about one case does not let us conclude something about every case
 
 
 #1G. If whenever the wind blows, the leaves move, and 
 the leaves are moving, then the wind is blowing.
 
-A. yes/no: 
+A. yes/no: no
 
-B. Why? 
+B. Why? this is prop.14 from the hw, which we know is not necessarily true
 
 
 #1H: If Gina is nice *or* Gina is tall, and Gina is nice,
 then Gina is not tall. (The "or" here is understood to be
 the or of predicate logic.)
 
-A. yes/no: 
+A. yes/no: no
 
-B. Why?
+B. Why? this is prop.1 from the hw, which we know is not necessarily true
 -/
 
 
@@ -94,10 +95,11 @@ logic: X ∨ ¬Y.
 
 #2A: Is is satisfiable? If so, give a model (a binding of 
 the variables to values that makes the expressions true).
+Yes: X:true, Y:false
 
 
 #2B: Is it valid? Explain your answer. 
-
+No, we can give a counterexample in X:false, Y:true
 
 -/
 
@@ -113,7 +115,7 @@ true if and only if Q is true) then if P is true then Q is
 true.
 -/
 
-#check _
+#check ∀ (P Q : Prop), (P↔Q) → (P → Q)
 
 
 
@@ -128,7 +130,7 @@ be ignored here.
 #check ∀ (n m : ℕ), n < m → m - n > 0
 
 /-
-Answer:
+Answer: for all n,m natural, n < m implies m-n > 0
 -/
 
 -- B
@@ -136,7 +138,7 @@ Answer:
 #check ∃ (n : ℕ), ∀ (m : nat), m >= n
 
 /-
-Answer:
+Answer: there exists some n such that for all m natural, m ≥ n
 -/
 
 
@@ -146,7 +148,7 @@ variables (isEven: ℕ → Prop) (isOdd: ℕ → Prop)
 #check ∀ (n : ℕ), isEven n ∨ isOdd n
 
 /-
-Answer:
+Answer: for all n natural, n is even or n is odd
 -/
 
 
@@ -155,7 +157,7 @@ Answer:
 #check ∀ (P : Prop), P ∨ ¬P
 
 /-
-Answer:
+Answer: Every proposition is either true or not true
 -/
 
 
@@ -164,7 +166,7 @@ Answer:
 #check ∀ (P : Prop), ¬(P ∧ ¬P)
 
 /-
-Answer:
+Answer: For every proposition P, we do not have that both P and not P
 -/
 
 
@@ -190,4 +192,8 @@ variable contagion :
   (closeContact : Animal → Animal → Prop), 
   hasVirus a1 → closeContact a1 a2 → hasVirus a2
 
+/-
 
+This is a way of expressing the idea that if two animals come into close contact and one has a virus, the other will too.
+
+-/
